@@ -1,32 +1,31 @@
 // ## COUNTER FUNCTIONALITY ##
 // Handles incrementing and decrementing the product quantity counter.
-let counter = 0; // Initialize counter to 0
+let counter = 0; // Initialize counter to 0, We start with a counter set to 0 (let counter = 0;).
 const counterValue = document.getElementById('counter-value'); // Select the counter display element
 const incrementBtn = document.getElementById('increment-btn'); // Select the increment button
-const decrementBtn = document.getElementById('decrement-btn'); // Select the decrement button
+const decrementBtn = document.getElementById('decrement-btn'); // Select the decrement button         
 const errorMessage = document.getElementById('error-message'); // Select the error message element
-
 // Event listener for increment button
 incrementBtn.addEventListener('click', function() {
-  counter++; // Increment the counter
+  counter++; // Increment the counter, When we press the "increase" button, the counter goes up by 1.
   counterValue.textContent = counter; // Update the counter display
-  errorMessage.textContent = ''; // Clear any error message
+  errorMessage.textContent = ''; // Clear any error message, We show the new number and make sure there's no error message.
 });
 
 // Event listener for decrement button
 decrementBtn.addEventListener('click', function() {
-  if (counter > 0) {
+  if (counter > 0) { // When we press the "decrease" button, the counter goes down by 1, but only if it’s above 0.
     counter--; // Decrement the counter if it's greater than 0
     counterValue.textContent = counter; // Update the counter display
     errorMessage.textContent = ''; // Clear any error message
-  } else {
+  } else { // If the counter is already at 0, we show a message saying "You can't go below 0!"
     errorMessage.textContent = "You can't go below 0!"; // Show error message if counter is 0
   }
 });
 
 // ## TOGGLE MENU ON MOBILE SCREEN ##
 // Toggles the navigation menu visibility and overlay on mobile screens.
-function toggleMenu() {
+function toggleMenu() { // We find the menu, the menu icon, and the overlay on the screen.
   var menu = document.getElementById("list"); // Select the menu element
   var menuicon = document.getElementById("menu-icon"); // Select the menu icon element
   var overlay = document.querySelector('.overlay'); // Select the overlay element
@@ -36,6 +35,7 @@ function toggleMenu() {
   var isNavHidden = window.getComputedStyle(menu, null).getPropertyValue("display") === "none";
   if (isNavHidden) {
     // If menu is hidden, show it and change the icon to close
+    // When we check if the menu is hidden, if it is, we show the menu and change the icon to a close symbol.
     menu.classList.remove("d-none");
     menu.classList.add("d-flex", "menu-display");
     menuicon.innerHTML = '<img src="images/icon-close.svg" alt="Close icon">';
@@ -43,6 +43,7 @@ function toggleMenu() {
     menuicon.classList.remove('rotate-icon2');
   } else {
     // If menu is visible, hide it and change the icon to menu
+    // If the menu is already shown, we hide it and change the icon back to a menu symbol.
     menu.classList.remove("d-flex", "menu-display");
     menu.classList.add("d-none");
     menuicon.innerHTML = '<img src="images/icon-menu.svg" alt="Menu icon">';
