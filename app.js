@@ -107,77 +107,78 @@ function addToCart() {
 
 // ## NOTIFICATION AND CART MANAGEMENT ##
 // Manages notifications and cart item removal.
-var notf = document.getElementById("notification"); // Select the notification element
+
+var notf = document.getElementById("notification"); // Find the part of the page that shows how many items are in the cart
 
 // Function to update the cart item count notification
 function notification() {
-  if (items.childElementCount === 0) {
-    notf.style.display = 'none'; // Hide notification if cart is empty
-  } else {
-    notf.style.display = 'block'; // Show notification if cart has items
-    notf.textContent = items.childElementCount; // Update notification count
+  if (items.childElementCount === 0) { // If there are no items in the cart
+    notf.style.display = 'none'; // Hide the notification
+  } else { // If there are items in the cart
+    notf.style.display = 'block'; // Show the notification
+    notf.textContent = items.childElementCount; // Show how many items are in the cart
   }
 }
 
 // Function to remove an item from the cart
 function removeItem(ItemID) {
-  var itemToRemove = document.getElementById(ItemID); // Select the item to remove
-  itemToRemove.remove(); // Remove the item from the cart
+  var itemToRemove = document.getElementById(ItemID); // Find the item we want to remove
+  itemToRemove.remove(); // Remove that item from the cart
 
-  Checkcartempty(); // Check if the cart is empty
-  checkoutbuttondisplay(); // Display or hide the checkout button
-  notification(); // Update notification
+  Checkcartempty(); // Check if the cart is empty now
+  checkoutbuttondisplay(); // Show or hide the checkout button
+  notification(); // Update the notification
 
   // Update the subtotal after removing an item
-  subtotal = parseFloat(subtotal) - parseFloat(totals[ItemID - 1]);
-  if (subtotal > 0) {
-    totaldiv.innerHTML = `<strong> SUBTOTAL : $${subtotal}</strong>`; // Update subtotal display
-  } else {
-    totaldiv.style.display = "none"; // Hide subtotal display if 0
+  subtotal = parseFloat(subtotal) - parseFloat(totals[ItemID - 1]); // Subtract the item's price from the subtotal
+  if (subtotal > 0) { // If the subtotal is more than 0
+    totaldiv.innerHTML = `<strong> SUBTOTAL : $${subtotal}</strong>`; // Show the new subtotal
+  } else { // If the subtotal is 0 or less
+    totaldiv.style.display = "none"; // Hide the subtotal display
   }
 }
 
 // Check if the cart is empty and update the message
-let cartemptymsg = document.getElementById("cartemptymsg");
+let cartemptymsg = document.getElementById("cartemptymsg"); // Find the part of the page that shows if the cart is empty
 function Checkcartempty() {
-  if (items.childElementCount === 0) {
-    cartemptymsg.textContent = 'Your cart is empty'; // Show empty cart message
-    return true;
-  } else {
-    cartemptymsg.textContent = ''; // Clear empty cart message
-    return false;
+  if (items.childElementCount === 0) { // If there are no items in the cart
+    cartemptymsg.textContent = 'Your cart is empty'; // Show the empty cart message
+    return true; // Yes, the cart is empty
+  } else { // If there are items in the cart
+    cartemptymsg.textContent = ''; // Clear the empty cart message
+    return false; // No, the cart is not empty
   }
 }
-Checkcartempty(); // Initial check on page load
+Checkcartempty(); // Check if the cart is empty when the page loads
 
 // Show or hide the checkout button based on cart status
-let checkoutbtn = document.getElementById("checkoutbtn");
+let checkoutbtn = document.getElementById("checkoutbtn"); // Find the checkout button
 function checkoutbuttondisplay() {
-  checkoutbtn.style.display = Checkcartempty() ? "none" : "block"; // Toggle checkout button
+  checkoutbtn.style.display = Checkcartempty() ? "none" : "block"; // Hide the button if the cart is empty, show it if not
 }
-checkoutbuttondisplay(); // Initial display on page load
+checkoutbuttondisplay(); // Show or hide the checkout button when the page loads
 
 // ## CAROUSEL AND MODAL MANAGEMENT ##
 // Manages carousel and modal functionality based on screen size.
 
 // Function to get the active carousel item
 function getActiveCarouselItem() {
-  return document.querySelector('.carousel-indicators img.active'); // Return active carousel image
+  return document.querySelector('.carousel-indicators img.active'); // Find and return the active carousel image
 }
 
 // Function to conditionally toggle modal functionality on small screens
 function toggleModal() {
-  var modalToggleBtns = document.querySelectorAll('.modal-toggle-btn'); // Select all modal toggle buttons
+  var modalToggleBtns = document.querySelectorAll('.modal-toggle-btn'); // Find all the buttons that open modals
 
   modalToggleBtns.forEach(function(btn) {
-    if (window.innerWidth <= 767.98) {
-      btn.removeAttribute('data-bs-toggle'); // Remove modal toggle on small screens
-    } else {
-      btn.setAttribute('data-bs-toggle', 'modal'); // Add modal toggle on larger screens
+    if (window.innerWidth <= 767.98) { // If the screen is small
+      btn.removeAttribute('data-bs-toggle'); // Remove the ability to open modals
+    } else { // If the screen is big
+      btn.setAttribute('data-bs-toggle', 'modal'); // Add the ability to open modals
     }
   });
 }
 
 // Call the function on window load and resize
-window.addEventListener('load', toggleModal); // On page load
-window.addEventListener('resize', toggleModal); // On window resize
+window.addEventListener('load', toggleModal); // Run the function when the page loads
+window.addEventListener('resize', toggleModal); // Run the function when the window is resized
